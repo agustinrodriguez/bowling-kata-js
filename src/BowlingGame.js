@@ -1,12 +1,10 @@
 class BowlingGame {
   constructor() {
     this.rolls = [];
-    this.currentRoll = 0;
   }
 
   roll(pins) {
-    this.rolls[this.currentRoll] = pins;
-    this.currentRoll++;
+    this.rolls.push(pins);
   }
 
   score() {
