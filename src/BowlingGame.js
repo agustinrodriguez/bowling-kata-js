@@ -11,34 +11,42 @@ class BowlingGame {
 
   score() {
     let score = 0;
-    let frameIndex = 0;
+    let rollIndex = 0;
 
     for (let i = 0; i < 10; i++) {
-      if (this.isStrike(frameIndex)) {
-        score += 10 + this.scoreOfFrame(frameIndex + 1);
-        frameIndex++;
-      } else if (this.isSpare(frameIndex)) {
-        score += 10 + this.rolls[frameIndex + 2];
-        frameIndex += 2;
+      if (this.isStrike(rollIndex)) {
+        score += this.scoreOfStrike(rollIndex);
+        rollIndex++;
+      } else if (this.isSpare(rollIndex)) {
+        score += this.scoreOfSpare(rollIndex);
+        rollIndex += 2;
       } else {
-        score += this.scoreOfFrame(frameIndex);
-        frameIndex += 2;
+        score += this.scoreOfFrame(rollIndex);
+        rollIndex += 2;
       }
     }
 
     return score;
   }
 
-  isSpare(frameIndex) {
-    return this.rolls[frameIndex] + this.rolls[frameIndex + 1] == 10;
+  isSpare(rollIndex) {
+    return this.scoreOfFrame(rollIndex) == 10;
   }
 
-  isStrike(frameIndex) {
-    return this.rolls[frameIndex] == 10;
+  isStrike(rollIndex) {
+    return this.rolls[rollIndex] == 10;
   }
 
-  scoreOfFrame(frameIndex) {
-    return this.rolls[frameIndex] + this.rolls[frameIndex + 1];
+  scoreOfFrame(rollIndex) {
+    return this.rolls[rollIndex] + this.rolls[rollIndex + 1];
+  }
+
+  scoreOfStrike(rollIndex) {
+    return 10 + this.scoreOfFrame(rollIndex + 1);
+  }
+
+  scoreOfSpare(rollIndex) {
+    return 10 + this.rolls[rollIndex + 2];
   }
 }
 
